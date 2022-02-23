@@ -15,7 +15,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
         - name: server
-          image: nginx:latest
+          image: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
           ports:
             - containerPort: 80
           resources:

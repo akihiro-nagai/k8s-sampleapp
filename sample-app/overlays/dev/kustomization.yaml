@@ -1,9 +1,0 @@
-#namePrefix: dev-
-
-namespace: dev
-
-bases:
-- ../../base
-
-resources:
-- ns.yaml
