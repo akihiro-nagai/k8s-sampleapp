@@ -12,4 +12,4 @@ resources:
 images:
 - name: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
   newName: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
-  newTag: 20220317-fail1
+  newTag: 20220223-1
