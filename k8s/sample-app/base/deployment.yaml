@@ -20,7 +20,7 @@ spec:
             - containerPort: 80
           env:
             - name: DUMMY
-              value: '200'
+              value: '100'
           resources:
             requests:
               cpu: 100m
