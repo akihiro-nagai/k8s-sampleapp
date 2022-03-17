@@ -23,9 +23,9 @@ spec:
               value: '100'
           livenessProbe:
             tcpSocket:
-              port: 82
-            initialDelaySeconds: 5
-            periodSeconds: 5
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources:
             requests:
               cpu: 100m
