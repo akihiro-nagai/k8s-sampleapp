@@ -18,6 +18,9 @@ spec:
           image: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
           ports:
             - containerPort: 80
+          env:
+            - name: DUMMY
+              value: 100
           resources:
             requests:
               cpu: 100m
