@@ -7,4 +7,6 @@ RUN apt-get install -y \
       vim \
       procps
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ADD entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["nginx", "-g", "daemon off;"]
