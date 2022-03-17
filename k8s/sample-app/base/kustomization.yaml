@@ -1,3 +1,4 @@
 resources:
 - sa.yaml
 - deployment.yaml
+- hpa.yaml
