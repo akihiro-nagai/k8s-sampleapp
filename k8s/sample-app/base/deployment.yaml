@@ -14,7 +14,6 @@ spec:
         app: myapp
     spec:
       terminationGracePeriodSeconds: 5
-      serviceAccountName: myapp-ksa
       containers:
         - name: server
           image: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
