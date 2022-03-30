@@ -20,6 +20,11 @@ spec:
           env:
             - name: DUMMY
               value: '100'
+          startupProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
           livenessProbe:
             tcpSocket:
               port: 80
