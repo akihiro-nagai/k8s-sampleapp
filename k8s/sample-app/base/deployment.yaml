@@ -14,6 +14,7 @@ spec:
         app: myapp
     spec:
       terminationGracePeriodSeconds: 5
+      serviceAccountName: myapp-ksa
       containers:
         - name: server
           image: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
@@ -22,11 +23,6 @@ spec:
           env:
             - name: DUMMY
               value: '100'
-          startupProbe:
-            tcpSocket:
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 10
           livenessProbe:
             tcpSocket:
               port: 80
@@ -34,5 +30,5 @@ spec:
             periodSeconds: 10
           resources:
             requests:
-              cpu: 99m
-              memory: 128Mi
+              cpu: 5m
+              memory: 32Mi

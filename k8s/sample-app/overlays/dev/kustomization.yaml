@@ -6,8 +6,11 @@ kind: Kustomization
 namespace: dev
 
 resources:
-- ns.yaml
 - ../../base
+- ns.yaml
+
+patchesStrategicMerge:
+- sa.yaml
 
 images:
 - name: us-central1-docker.pkg.dev/maugram-dev/sampleapp1/sampleapp1
