@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+       - echo "hello"
+       - |
+         set -x
+         aws --version
+         aws sts get-caller-identity
+         aws s3 ls s3://${SOURCE_S3_BUCKET}/
+         aws s3 ls s3://${DEST_S3_BUCKET}/
+         aws s3 sync s3://${SOURCE_S3_BUCKET}/ s3://${DEST_S3_BUCKET}/synctest/
