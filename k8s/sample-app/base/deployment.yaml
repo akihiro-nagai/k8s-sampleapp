@@ -22,7 +22,7 @@ spec:
             - containerPort: 80
           env:
             - name: DUMMY
-              value: '100'
+              value: 100
           livenessProbe:
             tcpSocket:
               port: 80
