@@ -6,6 +6,9 @@ on:
       - 'k8s/**/*.yaml'
   workflow_dispatch:
 
+jobs:
+  lint:
+    name: validation and lint
 env:
   KUBECONFORM_VERSION: 'v0.6.1'
 
