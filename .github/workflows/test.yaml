@@ -1,0 +1,24 @@
+name: TestActions
+
+on:
+  workflow_dispatch:
+    inputs:
+      rubyVersion:
+        description: 'ruby version'
+        default: '3'
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: test setup-ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ inputs.rubyVersion }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: |
+          ruby --version
+          node --version

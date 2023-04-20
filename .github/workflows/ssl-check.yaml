@@ -1,0 +1,82 @@
+name: SSL Cert Check
+
+on:
+  workflow_dispatch:
+  #schedule:
+  #  - cron: '0 3 * * *'
+
+jobs:
+  sslcheck:
+    name: ssl-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Staging SSL Cert Check
+        id: stg_ssl_check
+        run: |
+          result=$(./scripts/check-ssl.sh staging)
+          if [[ -n ${result} ]]; then
+            EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+            echo "RESULT<<${EOF}" >> ${GITHUB_ENV}
+            echo "${result}"      >> ${GITHUB_ENV}
+            echo "${EOF}"         >> ${GITHUB_ENV}
+          else
+            echo "RESULT=期限切れが近いSSL証明書はありませんでした" >> ${GITHUB_ENV}
+          fi
+      - name: Staging Notify Slack
+        uses: slackapi/slack-github-action@v1.23.0
+        id: stg_notify_slack
+        with:
+          channel-id: 'C036N9EQ55G' # sandbox
+          payload: |
+            {
+              "text": "期限切れSSLチェック結果",
+              "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "${{ env.RESULT }}"
+                    }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Production SSL Cert Check
+        id: prod_ssl_check
+        run: |
+          result=$(./scripts/check-ssl.sh production)
+          if [[ -n ${result} ]]; then
+            EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+            echo "RESULT<<${EOF}" >> ${GITHUB_ENV}
+            echo "${result}"      >> ${GITHUB_ENV}
+            echo "${EOF}"         >> ${GITHUB_ENV}
+          else
+            echo "RESULT=期限切れが近いSSL証明書はありませんでした" >> ${GITHUB_ENV}
+          fi
+      - name: Production Notify Slack
+        uses: slackapi/slack-github-action@v1.23.0
+        id: prod_notify_slack
+        with:
+          channel-id: 'C03725PMLLB' # private
+          payload: |
+            {
+              "text": "期限切れSSLチェック結果",
+              "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "${{ env.RESULT }}"
+                    }
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
